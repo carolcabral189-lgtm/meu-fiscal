@@ -1,0 +1,12 @@
+{
+  "name": "Meu Fiscal",
+  "short_name": "Meu Fiscal",
+  "description": "Organizador de estudos para concursos fiscais.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "display_override": ["fullscreen", "standalone"],
+  "orientation": "portrait",
+  "background_color": "#f8fafc",
+  "theme_color": "#0f172a"
+}
