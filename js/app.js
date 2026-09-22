@@ -1289,10 +1289,9 @@ function iniciarQuestoes(m){
     document.querySelector("[data-questoes-close]")
     ?.addEventListener("click", sairQuestoes);
 
-  document.querySelector("[data-questoes-iniciar]")
-    ?.addEventListener("click", prepararQuestoes);
-}
-
+  document.querySelector("[data-questoes-iniciar]").onclick = function(){
+  prepararQuestoes();
+};
 function prepararQuestoes(){
 
   const materia =
