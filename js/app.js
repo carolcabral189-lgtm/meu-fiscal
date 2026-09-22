@@ -1559,6 +1559,22 @@ function bindQuestoes(){
 
 }
 
+function sairQuestoes(){
+
+  const modal = document.querySelector("#modal");
+
+  if(modal){
+    modal.remove();
+  }
+
+  questoesAtual = null;
+  questoesLista = [];
+  questoesIndice = 0;
+  questoesRespostas = {};
+  questoesInicio = null;
+
+}
+
 function finalizarQuestoes(){
 
   let acertos = 0;
