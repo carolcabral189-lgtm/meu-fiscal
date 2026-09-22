@@ -587,9 +587,22 @@ function renderPlans(){
   document.querySelector("#modal [data-close]").onclick=()=>document.querySelector("#modal").remove();
 }
 function openMaterial(id){
-  const m=catalogo.find(x=>x.id===id); if(!m)return;
+  const m=catalogo.find(x=>x.id===id);
+  if(!m)return;
+
   selectedMaterial=m;
-  if(!materialUnlocked(m)){renderPaywall(m);return}
+
+  if(!materialUnlocked(m)){
+    renderPaywall(m);
+    return;
+  }
+
+  // Simulados abrem no modo prova.
+  if(m.tipo==="simulado" && Array.isArray(m.questoes) && m.questoes.length){
+    iniciarSimulado(m);
+    return;
+  }
+
   renderReader(m);
 }
 function renderReader(m){
