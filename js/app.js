@@ -1442,17 +1442,21 @@ function renderQuestao(){
 
   bindQuestoes();
 }
-
 function bindQuestoes(){
 
-  document.querySelector("[data-questoes-close]")
-    ?.addEventListener("click", sairQuestoes);
+  const fechar = document.querySelector("[data-questoes-close]");
+
+  if(fechar){
+    fechar.onclick = function(){
+      sairQuestoes();
+    };
+  }
 
   document
     .querySelectorAll("[data-questao-alternativa]")
-    .forEach(btn => {
+    .forEach(function(btn){
 
-      btn.addEventListener("click", () => {
+      btn.onclick = function(){
 
         const q = questoesLista[questoesIndice];
 
@@ -1461,49 +1465,63 @@ function bindQuestoes(){
 
         renderQuestao();
 
-      });
+      };
 
     });
 
-  const botaoProxima = document.querySelector("[data-questao-proxima]");
+  const proxima =
+    document.querySelector("[data-questao-proxima]");
 
-if(botaoProxima){
+  if(proxima){
 
-  botaoProxima.onclick = function(){
+    proxima.onclick = function(){
 
-    if(questoesIndice < questoesLista.length - 1){
+      if(questoesIndice < questoesLista.length - 1){
 
-      questoesIndice++;
+        questoesIndice++;
 
-      renderQuestao();
+        renderQuestao();
 
-    }
+      }
 
-  };
+    };
+
+  }
+
+  const voltar =
+    document.querySelector("[data-questao-voltar]");
+
+  if(voltar){
+
+    voltar.onclick = function(){
+
+      if(questoesIndice > 0){
+
+        questoesIndice--;
+
+        renderQuestao();
+
+      }
+
+    };
+
+  }
+
+  const finalizar =
+    document.querySelector("[data-questao-finalizar]");
+
+  if(finalizar){
+
+    finalizar.onclick = function(){
+
+      finalizarQuestoes();
+
+    };
+
+  }
 
 }
 
-  const botaoVoltar = document.querySelector("[data-questao-voltar]");
-
-if(botaoVoltar){
-
-  botaoVoltar.onclick = function(){
-
-    if(questoesIndice > 0){
-
-      questoesIndice--;
-
-      renderQuestao();
-
-    }
-
-  };
-
-}
-
-  document.querySelector("[data-questao-finalizar]")
-    ?.addEventListener("click", finalizarQuestoes);
-}
 function finalizarQuestoes(){
 
   let acertos = 0;
