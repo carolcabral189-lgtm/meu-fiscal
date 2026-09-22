@@ -1289,8 +1289,10 @@ function iniciarQuestoes(m){
   document.querySelector("[data-questoes-close]")
     ?.addEventListener("click", sairQuestoes);
 
-  document.querySelector("[data-questoes-iniciar]")
-    ?.addEventListener("click", prepararQuestoes);
+  const botaoIniciar = document.querySelector("[data-questoes-iniciar]");
+
+if(botaoIniciar){
+  botaoIniciar.onclick = prepararQuestoes;
 }
 
 function prepararQuestoes(){
