@@ -1429,11 +1429,13 @@ function renderQuestao(){
 
         : `
           <button
-            class="btn btn-primary"
-            data-questao-proxima
-          >
-            Próxima →
-          </button>
+  type="button"
+  class="btn btn-primary"
+  data-questao-proxima
+  onclick="window.avancarQuestao()"
+>
+  Próxima →
+</button>
         `
       }
 
@@ -1441,7 +1443,19 @@ function renderQuestao(){
   `;
 
   bindQuestoes();
+
 }
+window.avancarQuestao = function(){
+
+  if(questoesIndice < questoesLista.length - 1){
+
+    questoesIndice++;
+
+    renderQuestao();
+
+  }
+
+};
 function bindQuestoes(){
 
   const fechar = document.querySelector("[data-questoes-close]");
