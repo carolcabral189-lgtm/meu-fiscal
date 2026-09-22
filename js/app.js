@@ -1282,6 +1282,7 @@ function iniciarQuestoes(m){
   type="button"
   class="btn btn-primary btn-block"
   id="botao-comecar-questoes"
+  onclick="prepararQuestoes()"
 >
   Começar questões
 </button>
