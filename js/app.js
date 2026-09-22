@@ -1370,7 +1370,7 @@ function renderQuestao(){
       <button
   type="button"
   class="icon-btn"
-  onclick="window.fecharQuestoes()"
+  data-questoes-close
 >
   ✕
 </button>
@@ -1414,7 +1414,7 @@ function renderQuestao(){
       <button
   type="button"
   class="btn btn-secondary"
-  onclick="window.voltarQuestao()"
+  data-questao-voltar
   ${questoesIndice===0?"disabled":""}
 >
   ← Voltar
@@ -1462,23 +1462,6 @@ window.avancarQuestao = function(){
 
 };
 
-window.voltarQuestao = function(){
-
-  if(questoesIndice > 0){
-
-    questoesIndice--;
-
-    renderQuestao();
-
-  }
-
-};
-
-window.fecharQuestoes = function(){
-
-  sairQuestoes();
-
-};
 function bindQuestoes(){
 
   const fechar = document.querySelector("[data-questoes-close]");
@@ -1510,26 +1493,15 @@ function bindQuestoes(){
     document.querySelector("[data-questao-proxima]");
 
   if(proxima){
-
     proxima.onclick = function(){
-
-      if(questoesIndice < questoesLista.length - 1){
-
-        questoesIndice++;
-
-        renderQuestao();
-
-      }
-
+      window.avancarQuestao();
     };
-
   }
 
   const voltar =
     document.querySelector("[data-questao-voltar]");
 
   if(voltar){
-
     voltar.onclick = function(){
 
       if(questoesIndice > 0){
@@ -1541,20 +1513,15 @@ function bindQuestoes(){
       }
 
     };
-
   }
 
   const finalizar =
     document.querySelector("[data-questao-finalizar]");
 
   if(finalizar){
-
     finalizar.onclick = function(){
-
       finalizarQuestoes();
-
     };
-
   }
 
 }
