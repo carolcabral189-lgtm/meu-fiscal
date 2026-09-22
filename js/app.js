@@ -767,7 +767,10 @@ function openMaterial(id){
     iniciarSimulado(m);
     return;
   }
-
+if(m.tipo==="questoes" && Array.isArray(m.questoes) && m.questoes.length){
+  iniciarQuestoes(m);
+  return;
+}
   renderReader(m);
 }
 function renderReader(m){
