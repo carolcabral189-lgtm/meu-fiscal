@@ -1343,6 +1343,7 @@ let lista = [...questoesAtual.questoes];
 
   renderQuestao();
 }
+window.prepararQuestoes = prepararQuestoes;
 
 function renderQuestao(){
 
