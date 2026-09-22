@@ -536,9 +536,27 @@ function safeStorageSet(value){
 }
 function loadState(){
   const raw=safeStorageGet();
-  const base={user:null,items:[],saved:[],checklists:{},tasks:{},weekly:{},history:{},screen:"hoje"};
+  const base={
+  user:null,
+  items:[],
+  saved:[],
+  checklists:{},
+  tasks:{},
+  weekly:{},
+  history:{},
+  questoesHistorico:[],
+  screen:"hoje"
+};
   if(!raw)return base;
-  try{const parsed={...base,...JSON.parse(raw)}; parsed.weekly=parsed.weekly||{}; parsed.history=parsed.history||{}; return parsed}catch{return base}
+  try{
+  const parsed={...base,...JSON.parse(raw)};
+  parsed.weekly=parsed.weekly||{};
+  parsed.history=parsed.history||{};
+  parsed.questoesHistorico=parsed.questoesHistorico||[];
+  return parsed;
+}catch{
+  return base;
+  }
 }
 function persist(){
   const ok=safeStorageSet(JSON.stringify(state));
