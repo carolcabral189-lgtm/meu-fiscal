@@ -1586,7 +1586,19 @@ function finalizarQuestoes(){
   const percentual = total
     ? Math.round((acertos / total) * 100)
     : 0;
+state.questoesHistorico.push({
+  id: uid(),
+  data: new Date().toISOString(),
+  total: total,
+  respondidas: respondidas,
+  acertos: acertos,
+  erros: erros,
+  percentual: percentual,
+  materia: [...new Set(questoesLista.map(q => q.materia))].join(", ")
+});
 
+persist();
+  
   const modal = document.querySelector("#modal .modal");
 
   if(!modal)return;
