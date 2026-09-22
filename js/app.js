@@ -1278,9 +1278,13 @@ function iniciarQuestoes(m){
           </select>
         </label>
 
-        <button class="btn btn-primary btn-block" data-questoes-iniciar>
-          Começar questões
-        </button>
+        <button
+  type="button"
+  class="btn btn-primary btn-block"
+  id="botao-comecar-questoes"
+>
+  Começar questões
+</button>
 
       </div>
     </div>
@@ -1289,8 +1293,8 @@ function iniciarQuestoes(m){
       document.querySelector("[data-questoes-close]")
     ?.addEventListener("click", sairQuestoes);
 
-  document.querySelector("[data-questoes-iniciar]")
-    ?.addEventListener("click", prepararQuestoes);
+  document.querySelector("#botao-comecar-questoes")
+  ?.addEventListener("click", prepararQuestoes);
 }
 function prepararQuestoes(){
   
