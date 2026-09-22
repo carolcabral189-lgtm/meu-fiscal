@@ -697,6 +697,26 @@ const mediaGeral = totalQuestoes
   ? Math.round((totalAcertos / totalQuestoes) * 100)
   : 0;
 
+    const porMateria = {};
+
+resultados.forEach(r => {
+
+  if(!r.materia) return;
+
+  const materia = r.materia;
+
+  if(!porMateria[materia]){
+    porMateria[materia] = {
+      acertos: 0,
+      total: 0
+    };
+  }
+
+  porMateria[materia].acertos += Number(r.acertos || 0);
+  porMateria[materia].total += Number(r.respondidas || 0);
+
+});
+    
     return `
       <div class="section">
 
@@ -744,6 +764,46 @@ const mediaGeral = totalQuestoes
 
 </div>
 
+<div class="card stack">
+
+  <h3>📚 Desempenho por matéria</h3>
+
+${
+  Object.keys(porMateria).length
+    ? Object.entries(porMateria).map(([materia, dados]) => {
+
+        const percentual = dados.total
+          ? Math.round((dados.acertos / dados.total) * 100)
+          : 0;
+
+        return `
+          <div class="history-entry">
+
+            <div class="row">
+              <b>${esc(materia)}</b>
+
+              <span class="badge">
+                ${percentual}%
+              </span>
+            </div>
+
+            <p class="small muted">
+              ${dados.acertos} acertos de ${dados.total} questões
+            </p>
+
+          </div>
+        `;
+
+      }).join("")
+
+    : `
+      <div class="empty">
+        Faça questões para começar a acompanhar seu desempenho por matéria.
+      </div>
+    `
+}
+
+</div>
           ${
             resultados.length
 
