@@ -1367,9 +1367,13 @@ function renderQuestao(){
         </h2>
       </div>
 
-      <button class="icon-btn" data-questoes-close>
-        ✕
-      </button>
+      <button
+  type="button"
+  class="icon-btn"
+  onclick="window.fecharQuestoes()"
+>
+  ✕
+</button>
 
     </div>
 
@@ -1408,12 +1412,13 @@ function renderQuestao(){
     <div class="row">
 
       <button
-        class="btn btn-secondary"
-        data-questao-voltar
-        ${questoesIndice===0?"disabled":""}
-      >
-        ← Voltar
-      </button>
+  type="button"
+  class="btn btn-secondary"
+  ${questoesIndice===0?"disabled":""}
+  onclick="window.voltarQuestao()"
+>
+  ← Voltar
+</button>
 
       ${
         questoesIndice===total-1
@@ -1454,6 +1459,24 @@ window.avancarQuestao = function(){
     renderQuestao();
 
   }
+
+};
+
+window.voltarQuestao = function(){
+
+  if(questoesIndice > 0){
+
+    questoesIndice--;
+
+    renderQuestao();
+
+  }
+
+};
+
+window.fecharQuestoes = function(){
+
+  sairQuestoes();
 
 };
 function bindQuestoes(){
