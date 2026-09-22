@@ -681,6 +681,22 @@ function renderArea(areaId){
 
     const resultados = state.questoesHistorico || [];
 
+    const totalQuestoes = resultados.reduce(
+  (s,r) => s + Number(r.respondidas || 0), 0
+);
+
+const totalAcertos = resultados.reduce(
+  (s,r) => s + Number(r.acertos || 0), 0
+);
+
+const totalErros = resultados.reduce(
+  (s,r) => s + Number(r.erros || 0), 0
+);
+
+const mediaGeral = totalQuestoes
+  ? Math.round((totalAcertos / totalQuestoes) * 100)
+  : 0;
+
     return `
       <div class="section">
 
@@ -703,6 +719,30 @@ function renderArea(areaId){
         <div class="card stack">
 
           <h3>📊 Meu desempenho</h3>
+
+          <div class="grid-2">
+
+  <div class="card center-text">
+    <span class="small muted">Questões</span>
+    <h2>${totalQuestoes}</h2>
+  </div>
+
+  <div class="card center-text">
+    <span class="small muted">Acertos</span>
+    <h2>✅ ${totalAcertos}</h2>
+  </div>
+
+  <div class="card center-text">
+    <span class="small muted">Erros</span>
+    <h2>❌ ${totalErros}</h2>
+  </div>
+
+  <div class="card center-text">
+    <span class="small muted">Média geral</span>
+    <h2>${mediaGeral}%</h2>
+  </div>
+
+</div>
 
           ${
             resultados.length
