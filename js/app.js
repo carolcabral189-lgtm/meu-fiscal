@@ -1196,3 +1196,261 @@ function sairSimulado(){
   simuladoRespostas={};
   simuladoInicio=null;
                 }
+// ===============================
+// SISTEMA DE QUESTÕES
+// ===============================
+
+let questoesAtual = null;
+let questoesLista = [];
+let questoesIndice = 0;
+let questoesRespostas = {};
+let questoesInicio = null;
+
+function iniciarQuestoes(m){
+
+  questoesAtual = m;
+  questoesLista = [...m.questoes];
+  questoesIndice = 0;
+  questoesRespostas = {};
+  questoesInicio = null;
+
+  const materias = [...new Set(
+    questoesLista.map(q => q.materia)
+  )];
+
+  const dificuldades = [...new Set(
+    questoesLista.map(q => q.dificuldade)
+  )];
+
+  document.body.insertAdjacentHTML("beforeend", `
+    <div class="modal-backdrop" id="modal">
+      <div class="modal stack">
+
+        <div class="row">
+          <div>
+            <span class="badge">QUESTÕES</span>
+            <h2>Pratique seus conhecimentos</h2>
+          </div>
+
+          <button class="icon-btn" data-questoes-close>✕</button>
+        </div>
+
+        <p class="muted">
+          Escolha como você quer treinar.
+        </p>
+
+        <label>
+          <b>Matéria</b>
+
+          <select id="questoes-materia" class="input">
+            <option value="todas">Todas as matérias</option>
+
+            ${materias.map(materia => `
+              <option value="${esc(materia)}">
+                ${esc(materia)}
+              </option>
+            `).join("")}
+          </select>
+        </label>
+
+        <label>
+          <b>Quantidade</b>
+
+          <select id="questoes-quantidade" class="input">
+            <option value="10">10 questões</option>
+            <option value="20">20 questões</option>
+            <option value="30">30 questões</option>
+            <option value="50">50 questões</option>
+          </select>
+        </label>
+
+        <label>
+          <b>Dificuldade</b>
+
+          <select id="questoes-dificuldade" class="input">
+            <option value="todas">Todas</option>
+
+            ${dificuldades.map(d => `
+              <option value="${esc(d)}">
+                ${esc(d.charAt(0).toUpperCase()+d.slice(1))}
+              </option>
+            `).join("")}
+          </select>
+        </label>
+
+        <button class="btn btn-primary btn-block" data-questoes-iniciar>
+          Começar questões
+        </button>
+
+      </div>
+    </div>
+  `);
+
+  document.querySelector("[data-questoes-close]")
+    ?.addEventListener("click", sairQuestoes);
+
+  document.querySelector("[data-questoes-iniciar]")
+    ?.addEventListener("click", prepararQuestoes);
+}
+
+function prepararQuestoes(){
+
+  const materia =
+    document.querySelector("#questoes-materia")?.value || "todas";
+
+  const dificuldade =
+    document.querySelector("#questoes-dificuldade")?.value || "todas";
+
+  const quantidade =
+    Number(
+      document.querySelector("#questoes-quantidade")?.value || 10
+    );
+
+  let lista = [...questoesAtual.questoes];
+
+  if(materia !== "todas"){
+    lista = lista.filter(q => q.materia === materia);
+  }
+
+  if(dificuldade !== "todas"){
+    lista = lista.filter(q => q.dificuldade === dificuldade);
+  }
+
+  lista.sort(() => Math.random() - 0.5);
+
+  lista = lista.slice(0, quantidade);
+
+  if(!lista.length){
+    alert("Não encontramos questões com esses filtros.");
+    return;
+  }
+
+  questoesLista = lista;
+  questoesIndice = 0;
+  questoesRespostas = {};
+  questoesInicio = Date.now();
+
+  renderQuestao();
+}
+
+function renderQuestao(){
+
+  const modal = document.querySelector("#modal .modal");
+
+  if(!modal || !questoesLista.length)return;
+
+  const q = questoesLista[questoesIndice];
+  const total = questoesLista.length;
+  const resposta = questoesRespostas[q.id];
+
+  modal.innerHTML = `
+
+    <div class="row">
+
+      <div>
+        <span class="badge">QUESTÕES</span>
+
+        <h2>
+          Questão ${questoesIndice+1} de ${total}
+        </h2>
+      </div>
+
+      <button class="icon-btn" data-questoes-close>
+        ✕
+      </button>
+
+    </div>
+
+    <div class="card">
+
+      <p class="small muted">
+        ${esc(q.materia)} · ${esc(q.dificuldade)}
+      </p>
+
+      <h3>
+        ${esc(q.enunciado)}
+      </h3>
+
+    </div>
+
+    <div class="stack">
+
+      ${q.alternativas.map((alt,i)=>`
+
+        <button
+          class="btn ${
+            resposta===i
+              ? "btn-primary"
+              : "btn-secondary"
+          } btn-block"
+          data-questao-alternativa="${i}"
+        >
+          <b>${String.fromCharCode(65+i)}.</b>
+          ${esc(alt)}
+        </button>
+
+      `).join("")}
+
+    </div>
+
+    <div class="row">
+
+      <button
+        class="btn btn-secondary"
+        data-questao-voltar
+        ${questoesIndice===0?"disabled":""}
+      >
+        ← Voltar
+      </button>
+
+      ${
+        questoesIndice===total-1
+
+        ? `
+          <button
+            class="btn btn-primary"
+            data-questao-finalizar
+          >
+            Finalizar
+          </button>
+        `
+
+        : `
+          <button
+            class="btn btn-primary"
+            data-questao-proxima
+          >
+            Próxima →
+          </button>
+        `
+      }
+
+    </div>
+  `;
+
+  bindQuestoes();
+}
+
+function bindQuestoes(){
+
+  document.querySelector("[data-questoes-close]")
+    ?.addEventListener("click", sairQuestoes);
+
+  document
+    .querySelectorAll("[data-questao-alternativa]")
+    .forEach(btn=>{
+
+      btn.addEventListener("click",()=>{
+
+        const q=questoesLista[questoesIndice];
+
+        questoesRespostas[q.id] =
+          Number(btn.dataset.questaoAlternativa);
+
+        renderQuestao();
+
+      });
+
+    });
+
+  document.query
