@@ -1465,31 +1465,41 @@ function bindQuestoes(){
 
     });
 
-  document.querySelector("[data-questao-proxima]")
-    ?.addEventListener("click", () => {
+  const botaoProxima = document.querySelector("[data-questao-proxima]");
 
-      if(questoesIndice < questoesLista.length - 1){
+if(botaoProxima){
 
-        questoesIndice++;
+  botaoProxima.onclick = function(){
 
-        renderQuestao();
+    if(questoesIndice < questoesLista.length - 1){
 
-      }
+      questoesIndice++;
 
-    });
+      renderQuestao();
 
-  document.querySelector("[data-questao-voltar]")
-    ?.addEventListener("click", () => {
+    }
 
-      if(questoesIndice > 0){
+  };
 
-        questoesIndice--;
+}
 
-        renderQuestao();
+  const botaoVoltar = document.querySelector("[data-questao-voltar]");
 
-      }
+if(botaoVoltar){
 
-    });
+  botaoVoltar.onclick = function(){
+
+    if(questoesIndice > 0){
+
+      questoesIndice--;
+
+      renderQuestao();
+
+    }
+
+  };
+
+}
 
   document.querySelector("[data-questao-finalizar]")
     ?.addEventListener("click", finalizarQuestoes);
