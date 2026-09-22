@@ -1438,11 +1438,11 @@ function bindQuestoes(){
 
   document
     .querySelectorAll("[data-questao-alternativa]")
-    .forEach(btn=>{
+    .forEach(btn => {
 
-      btn.addEventListener("click",()=>{
+      btn.addEventListener("click", () => {
 
-        const q=questoesLista[questoesIndice];
+        const q = questoesLista[questoesIndice];
 
         questoesRespostas[q.id] =
           Number(btn.dataset.questaoAlternativa);
@@ -1453,4 +1453,32 @@ function bindQuestoes(){
 
     });
 
-  document.query
+  document.querySelector("[data-questao-proxima]")
+    ?.addEventListener("click", () => {
+
+      if(questoesIndice < questoesLista.length - 1){
+
+        questoesIndice++;
+
+        renderQuestao();
+
+      }
+
+    });
+
+  document.querySelector("[data-questao-voltar]")
+    ?.addEventListener("click", () => {
+
+      if(questoesIndice > 0){
+
+        questoesIndice--;
+
+        renderQuestao();
+
+      }
+
+    });
+
+  document.querySelector("[data-questao-finalizar]")
+    ?.addEventListener("click", finalizarQuestoes);
+}
