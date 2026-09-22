@@ -1414,8 +1414,8 @@ function renderQuestao(){
       <button
   type="button"
   class="btn btn-secondary"
-  ${questoesIndice===0?"disabled":""}
   onclick="window.voltarQuestao()"
+  ${questoesIndice===0?"disabled":""}
 >
   ← Voltar
 </button>
