@@ -1494,3 +1494,106 @@ function bindQuestoes(){
   document.querySelector("[data-questao-finalizar]")
     ?.addEventListener("click", finalizarQuestoes);
 }
+function finalizarQuestoes(){
+
+  let acertos = 0;
+  let respondidas = 0;
+
+  questoesLista.forEach(q => {
+
+    const resposta = questoesRespostas[q.id];
+
+    if(resposta !== undefined){
+
+      respondidas++;
+
+      if(resposta === q.resposta){
+        acertos++;
+      }
+
+    }
+
+  });
+
+  const total = questoesLista.length;
+  const erros = respondidas - acertos;
+  const percentual = total
+    ? Math.round((acertos / total) * 100)
+    : 0;
+
+  const modal = document.querySelector("#modal .modal");
+
+  if(!modal)return;
+
+  modal.innerHTML = `
+
+    <div class="row">
+
+      <div>
+        <span class="badge">RESULTADO</span>
+        <h2>Questões finalizadas 🎯</h2>
+      </div>
+
+      <button class="icon-btn" data-questoes-close>
+        ✕
+      </button>
+
+    </div>
+
+    <div class="card hero center-text">
+
+      <p class="small muted">Seu resultado</p>
+
+      <h1>${acertos}/${total}</h1>
+
+      <h2>${percentual}% de aproveitamento</h2>
+
+      <p class="muted">
+        ${respondidas} questões respondidas
+      </p>
+
+    </div>
+
+    <div class="grid-2">
+
+      <div class="card center-text">
+        <b>✅ Acertos</b>
+        <h2>${acertos}</h2>
+      </div>
+
+      <div class="card center-text">
+        <b>❌ Erros</b>
+        <h2>${erros}</h2>
+      </div>
+
+    </div>
+
+    <div class="card stack">
+
+      <h3>O que fazer agora?</h3>
+
+      <p class="muted">
+        Revise principalmente as questões que você errou.
+        Elas podem ajudar a identificar os assuntos que precisam
+        de mais atenção.
+      </p>
+
+    </div>
+
+    <button
+      class="btn btn-primary btn-block"
+      data-questoes-fechar-resultado
+    >
+      Voltar
+    </button>
+
+  `;
+
+  document
+    .querySelector("[data-questoes-close]")
+    ?.addEventListener("click", sairQuestoes);
+
+  document
+    .querySelector("[data-questoes-fechar-resultado]")
+    ?.addEventListener("click", sairQuestoes);
+}
