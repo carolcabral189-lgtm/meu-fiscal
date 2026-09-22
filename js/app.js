@@ -673,9 +673,128 @@ function renderExplorar(){
   ${selectedArea?renderArea(selectedArea):`<div class="section card"><b>Escolha uma área</b><p class="muted small">Os materiais disponíveis mudam conforme o catálogo e o plano de acesso.</p></div>`}`;
 }
 function renderArea(areaId){
-  const area=APP.areas.find(a=>a.id===areaId), mats=catalogo.filter(m=>m.area===areaId);
-  return `<div class="section"><div class="row"><h2>${area.name}</h2><button class="btn btn-ghost" data-action="clear-area">Fechar</button></div>
-  <div class="stack">${mats.length?mats.map(renderMaterialCard).join(""):`<div class="card empty">Novos materiais desta área serão adicionados ao catálogo.</div>`}</div></div>`;
+
+  const area = APP.areas.find(a => a.id === areaId);
+  const mats = catalogo.filter(m => m.area === areaId);
+
+  if(areaId === "desempenho"){
+
+    const resultados = state.questoesHistorico || [];
+
+    return `
+      <div class="section">
+
+        <div class="row">
+          <div>
+            <h2>${area.name}</h2>
+            <p class="small muted">
+              Acompanhe seus resultados nas questões.
+            </p>
+          </div>
+
+          <button
+            class="btn btn-ghost"
+            data-action="clear-area"
+          >
+            Fechar
+          </button>
+        </div>
+
+        <div class="card stack">
+
+          <h3>📊 Meu desempenho</h3>
+
+          ${
+            resultados.length
+
+            ? resultados
+                .slice()
+                .reverse()
+                .map(r => `
+
+                  <article class="history-entry">
+
+                    <div class="row">
+
+                      <div>
+                        <b>${r.materia || "Questões"}</b>
+
+                        <div class="small muted">
+                          ${new Date(r.data).toLocaleDateString("pt-BR")}
+                        </div>
+                      </div>
+
+                      <span class="badge">
+                        ${r.percentual}%
+                      </span>
+
+                    </div>
+
+                    <p>
+                      ${r.acertos} acertos de ${r.total}
+                    </p>
+
+                    <p class="small muted">
+                      ${r.respondidas} respondidas ·
+                      ${r.erros} erros
+                    </p>
+
+                  </article>
+
+                `)
+                .join("")
+
+            : `
+              <div class="empty">
+                Você ainda não fez nenhuma bateria de questões.
+                <br><br>
+                Faça algumas questões e seus resultados aparecerão aqui.
+              </div>
+            `
+          }
+
+        </div>
+
+        ${
+          mats.length
+            ? `
+              <div class="stack">
+                ${mats.map(renderMaterialCard).join("")}
+              </div>
+            `
+            : ""
+        }
+
+      </div>
+    `;
+  }
+
+  return `
+    <div class="section">
+
+      <div class="row">
+        <h2>${area.name}</h2>
+
+        <button
+          class="btn btn-ghost"
+          data-action="clear-area"
+        >
+          Fechar
+        </button>
+      </div>
+
+      <div class="stack">
+        ${
+          mats.length
+            ? mats.map(renderMaterialCard).join("")
+            : `<div class="card empty">
+                Novos materiais desta área serão adicionados ao catálogo.
+              </div>`
+        }
+      </div>
+
+    </div>
+  `;
 }
 function renderMaterialCard(m){
   const lock=!materialUnlocked(m);
