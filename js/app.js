@@ -791,6 +791,17 @@ ${
               ${dados.acertos} acertos de ${dados.total} questões
             </p>
 
+            <div style="height:8px;background:var(--border);border-radius:999px;overflow:hidden;">
+  <div
+    style="
+      width:${percentual}%;
+      height:100%;
+      background:var(--primary);
+      border-radius:999px;
+    "
+  ></div>
+</div>
+
           </div>
         `;
 
