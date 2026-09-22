@@ -1293,7 +1293,9 @@ function iniciarQuestoes(m){
     ?.addEventListener("click", prepararQuestoes);
 }
 function prepararQuestoes(){
-
+  
+console.log("BOTÃO DE QUESTÕES FUNCIONOU");
+  
   const materia =
     document.querySelector("#questoes-materia")?.value || "todas";
 
