@@ -1286,13 +1286,11 @@ function iniciarQuestoes(m){
     </div>
   `);
 
-  document.querySelector("[data-questoes-close]")
+    document.querySelector("[data-questoes-close]")
     ?.addEventListener("click", sairQuestoes);
 
-  const botaoIniciar = document.querySelector("[data-questoes-iniciar]");
-
-if(botaoIniciar){
-  botaoIniciar.onclick = prepararQuestoes;
+  document.querySelector("[data-questoes-iniciar]")
+    ?.addEventListener("click", prepararQuestoes);
 }
 
 function prepararQuestoes(){
