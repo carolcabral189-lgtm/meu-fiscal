@@ -747,3 +747,284 @@ function eraseData(){
 }
 
 render();
+// ===============================
+// SISTEMA DE SIMULADOS
+// ===============================
+
+let simuladoAtual = null;
+let simuladoIndice = 0;
+let simuladoRespostas = {};
+let simuladoInicio = null;
+let simuladoTimer = null;
+
+function iniciarSimulado(m){
+  simuladoAtual = m;
+  simuladoIndice = 0;
+  simuladoRespostas = {};
+  simuladoInicio = Date.now();
+
+  clearInterval(simuladoTimer);
+
+  document.body.insertAdjacentHTML("beforeend", `
+    <div class="modal-backdrop" id="modal">
+      <div class="modal stack" id="simulado-modal"></div>
+    </div>
+  `);
+
+  renderQuestaoSimulado();
+
+  simuladoTimer = setInterval(atualizarTempoSimulado, 1000);
+}
+
+function atualizarTempoSimulado(){
+  const el=document.querySelector("#simulado-tempo");
+  if(!el || !simuladoInicio)return;
+
+  const segundos=Math.floor((Date.now()-simuladoInicio)/1000);
+  const min=Math.floor(segundos/60);
+  const sec=segundos%60;
+
+  el.textContent =
+    `${String(min).padStart(2,"0")}:${String(sec).padStart(2,"0")}`;
+}
+
+function renderQuestaoSimulado(){
+  const modal=document.querySelector("#simulado-modal");
+
+  if(!modal || !simuladoAtual)return;
+
+  const q=simuladoAtual.questoes[simuladoIndice];
+  const total=simuladoAtual.questoes.length;
+  const resposta=simuladoRespostas[q.id];
+
+  modal.innerHTML=`
+    <div class="row">
+      <div>
+        <span class="badge">SIMULADO</span>
+        <h2>${esc(simuladoAtual.titulo)}</h2>
+      </div>
+
+      <button class="icon-btn" data-simulado-close>✕</button>
+    </div>
+
+    <div class="row">
+      <b>Questão ${simuladoIndice+1} de ${total}</b>
+      <span class="badge" id="simulado-tempo">00:00</span>
+    </div>
+
+    <div class="card">
+      <p class="small muted">${esc(q.materia)}</p>
+      <h3>${esc(q.enunciado)}</h3>
+    </div>
+
+    <div class="stack">
+      ${q.alternativas.map((alt,i)=>`
+        <button
+          class="btn ${resposta===i?"btn-primary":"btn-secondary"} btn-block"
+          data-alternativa="${i}">
+          <b>${String.fromCharCode(65+i)}.</b>
+          ${esc(alt)}
+        </button>
+      `).join("")}
+    </div>
+
+    <div class="row">
+      <button
+        class="btn btn-secondary"
+        data-simulado-voltar
+        ${simuladoIndice===0?"disabled":""}>
+        ← Voltar
+      </button>
+
+      ${
+        simuladoIndice===total-1
+        ? `<button class="btn btn-primary" data-simulado-finalizar>Finalizar</button>`
+        : `<button class="btn btn-primary" data-simulado-proxima>Próxima →</button>`
+      }
+    </div>
+  `;
+
+  bindSimulado();
+  atualizarTempoSimulado();
+}
+
+function bindSimulado(){
+
+  document.querySelector("[data-simulado-close]")?.addEventListener("click",()=>{
+    sairSimulado();
+  });
+
+  document.querySelectorAll("[data-alternativa]").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+      simuladoRespostas[simuladoAtual.questoes[simuladoIndice].id]
+        = Number(btn.dataset.alternativa);
+
+      renderQuestaoSimulado();
+    });
+  });
+
+  document.querySelector("[data-simulado-proxima]")?.addEventListener("click",()=>{
+    if(simuladoIndice < simuladoAtual.questoes.length-1){
+      simuladoIndice++;
+      renderQuestaoSimulado();
+    }
+  });
+
+  document.querySelector("[data-simulado-voltar]")?.addEventListener("click",()=>{
+    if(simuladoIndice > 0){
+      simuladoIndice--;
+      renderQuestaoSimulado();
+    }
+  });
+
+  document.querySelector("[data-simulado-finalizar]")?.addEventListener("click",()=>{
+    finalizarSimulado();
+  });
+}
+
+function finalizarSimulado(){
+
+  clearInterval(simuladoTimer);
+
+  let acertos=0;
+  const porMateria={};
+
+  simuladoAtual.questoes.forEach(q=>{
+
+    const resposta=simuladoRespostas[q.id];
+    const acertou=resposta===q.resposta;
+
+    if(acertou)acertos++;
+
+    if(!porMateria[q.materia]){
+      porMateria[q.materia]={
+        total:0,
+        acertos:0
+      };
+    }
+
+    porMateria[q.materia].total++;
+
+    if(acertou){
+      porMateria[q.materia].acertos++;
+    }
+  });
+
+  const total=simuladoAtual.questoes.length;
+  const percentual=Math.round((acertos/total)*100);
+
+  const tempo=Math.floor((Date.now()-simuladoInicio)/1000);
+  const minutos=Math.floor(tempo/60);
+  const segundos=tempo%60;
+
+  const resultado={
+    id:Date.now(),
+    simulado:simuladoAtual.id,
+    titulo:simuladoAtual.titulo,
+    data:new Date().toISOString(),
+    acertos,
+    total,
+    percentual,
+    tempo,
+    porMateria
+  };
+
+  if(!state.simulados)state.simulados=[];
+
+  state.simulados.unshift(resultado);
+
+  if(state.simulados.length>50){
+    state.simulados=state.simulados.slice(0,50);
+  }
+
+  persist();
+
+  mostrarResultadoSimulado(resultado);
+}
+
+function mostrarResultadoSimulado(resultado){
+
+  const materias=Object.entries(resultado.porMateria);
+
+  document.querySelector("#simulado-modal").innerHTML=`
+
+    <div class="row">
+      <div>
+        <span class="badge">RESULTADO</span>
+        <h2>${esc(resultado.titulo)}</h2>
+      </div>
+    </div>
+
+    <div class="card hero center-text">
+      <div class="eyebrow">SEU RESULTADO</div>
+
+      <h1>${resultado.acertos}/${resultado.total}</h1>
+
+      <h2>${resultado.percentual}%</h2>
+
+      <p class="muted">
+        Tempo: ${String(Math.floor(resultado.tempo/60)).padStart(2,"0")}:${String(resultado.tempo%60).padStart(2,"0")}
+      </p>
+    </div>
+
+    <div class="card stack">
+      <h3>Desempenho por matéria</h3>
+
+      ${materias.map(([materia,dados])=>{
+        const p=Math.round((dados.acertos/dados.total)*100);
+
+        return `
+          <div class="list-item">
+            <div style="flex:1">
+              <b>${esc(materia)}</b>
+              <div class="small muted">
+                ${dados.acertos}/${dados.total} acertos
+              </div>
+            </div>
+
+            <span class="badge">${p}%</span>
+          </div>
+        `;
+      }).join("")}
+    </div>
+
+    <div class="card">
+      <h3>Onde você precisa melhorar</h3>
+
+      ${materias
+        .sort((a,b)=>
+          (b[1].acertos/b[1].total)-
+          (a[1].acertos/a[1].total)
+        )
+        .map(([materia,dados])=>{
+          const p=Math.round((dados.acertos/dados.total)*100);
+
+          let emoji="🟡";
+
+          if(p<60)emoji="🔴";
+          else if(p>=80)emoji="🟢";
+
+          return `<p>${emoji} <b>${esc(materia)}</b> — ${p}%</p>`;
+        }).join("")}
+    </div>
+
+    <button class="btn btn-primary btn-block" data-simulado-close-final>
+      Concluir
+    </button>
+  `;
+
+  document.querySelector("[data-simulado-close-final]")
+    ?.addEventListener("click",sairSimulado);
+}
+
+function sairSimulado(){
+
+  clearInterval(simuladoTimer);
+
+  document.querySelector("#modal")?.remove();
+
+  simuladoAtual=null;
+  simuladoIndice=0;
+  simuladoRespostas={};
+  simuladoInicio=null;
+                }
