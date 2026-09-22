@@ -1311,7 +1311,12 @@ console.log("BOTÃO DE QUESTÕES FUNCIONOU");
       document.querySelector("#questoes-quantidade")?.value || 10
     );
 
-  let lista = [...questoesAtual.questoes];
+  if(!questoesAtual || !Array.isArray(questoesAtual.questoes)){
+  alert("Erro: o banco de questões não foi carregado.");
+  return;
+}
+
+let lista = [...questoesAtual.questoes];
 
   if(materia !== "todas"){
     lista = lista.filter(q => q.materia === materia);
