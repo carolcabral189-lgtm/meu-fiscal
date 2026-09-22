@@ -157,7 +157,172 @@ const materiais_plano = [
 
 // Catálogo inicial da área Questões.
 // Acrescente novos objetos ao array "materiais" sem alterar js/app.js.
-const materiais_questoes = [];
+const materiais_questoes = [
+  {
+    id: "questoes-fiscal-01",
+    area: "questoes",
+    tipo: "questoes",
+    titulo: "Banco de Questões Fiscal",
+    resumo: "Questões para praticar e identificar seus principais erros.",
+    faixa: "Todos os níveis",
+    plano: "essencial",
+    amostra: true,
+    tempo: "Prática livre",
+    quantidade: 10,
+
+    questoes: [
+      {
+        id: "q1",
+        materia: "Português",
+        dificuldade: "fácil",
+        enunciado: "A principal finalidade de um texto instrucional é:",
+        alternativas: [
+          "Orientar a realização de uma ação.",
+          "Contar necessariamente uma história.",
+          "Apresentar somente opiniões.",
+          "Descrever uma paisagem."
+        ],
+        resposta: 0,
+        explicacao: "O texto instrucional apresenta orientações, regras ou procedimentos."
+      },
+
+      {
+        id: "q2",
+        materia: "Contabilidade",
+        dificuldade: "médio",
+        enunciado: "De forma simplificada, o patrimônio líquido corresponde a:",
+        alternativas: [
+          "Ativo + Passivo",
+          "Ativo - Passivo",
+          "Passivo - Ativo",
+          "Receita + Despesa"
+        ],
+        resposta: 1,
+        explicacao: "O patrimônio líquido corresponde à diferença entre o ativo e o passivo."
+      },
+
+      {
+        id: "q3",
+        materia: "Direito Tributário",
+        dificuldade: "fácil",
+        enunciado: "O tributo é uma prestação:",
+        alternativas: [
+          "Facultativa.",
+          "Contratual.",
+          "Pecuniária compulsória, nos termos da lei.",
+          "Exclusivamente municipal."
+        ],
+        resposta: 2,
+        explicacao: "O tributo possui natureza compulsória e deve ser instituído nos termos da lei."
+      },
+
+      {
+        id: "q4",
+        materia: "Direito Administrativo",
+        dificuldade: "fácil",
+        enunciado: "O princípio da legalidade exige que a Administração Pública:",
+        alternativas: [
+          "Atue conforme a lei.",
+          "Faça tudo que desejar.",
+          "Ignore regulamentos.",
+          "Atue sem normas."
+        ],
+        resposta: 0,
+        explicacao: "A Administração Pública deve obedecer ao ordenamento jurídico."
+      },
+
+      {
+        id: "q5",
+        materia: "Direito Constitucional",
+        dificuldade: "médio",
+        enunciado: "A Constituição Federal ocupa posição:",
+        alternativas: [
+          "Inferior às leis ordinárias.",
+          "Central e superior no ordenamento jurídico.",
+          "Exclusivamente administrativa.",
+          "Sem força jurídica."
+        ],
+        resposta: 1,
+        explicacao: "A Constituição é a norma fundamental do ordenamento jurídico."
+      },
+
+      {
+        id: "q6",
+        materia: "Raciocínio Lógico",
+        dificuldade: "fácil",
+        enunciado: "Se todos os fiscais são servidores e Ana é fiscal, podemos concluir que:",
+        alternativas: [
+          "Ana não é servidora.",
+          "Ana é servidora.",
+          "Nenhum fiscal é servidor.",
+          "Não é possível concluir."
+        ],
+        resposta: 1,
+        explicacao: "Se todo fiscal é servidor e Ana é fiscal, então Ana é servidora."
+      },
+
+      {
+        id: "q7",
+        materia: "Português",
+        dificuldade: "médio",
+        enunciado: "A tese de um texto argumentativo é:",
+        alternativas: [
+          "A ideia principal defendida pelo autor.",
+          "Uma informação sem relação com o tema.",
+          "Somente o título.",
+          "Uma citação obrigatória."
+        ],
+        resposta: 0,
+        explicacao: "A tese representa a ideia ou posição principal defendida pelo autor."
+      },
+
+      {
+        id: "q8",
+        materia: "Contabilidade",
+        dificuldade: "médio",
+        enunciado: "Uma compra de mercadorias à vista provoca, em regra:",
+        alternativas: [
+          "Aumento do ativo e do passivo.",
+          "Troca entre contas do ativo.",
+          "Aumento somente do passivo.",
+          "Redução do patrimônio líquido."
+        ],
+        resposta: 1,
+        explicacao: "Na compra à vista ocorre entrada de mercadorias e saída de dinheiro."
+      },
+
+      {
+        id: "q9",
+        materia: "Direito Tributário",
+        dificuldade: "médio",
+        enunciado: "A obrigação tributária principal tem por objeto:",
+        alternativas: [
+          "O pagamento de tributo ou penalidade pecuniária.",
+          "Somente a entrega de documentos.",
+          "Somente uma informação cadastral.",
+          "Um contrato privado."
+        ],
+        resposta: 0,
+        explicacao: "A obrigação principal tem como objeto o pagamento de tributo ou penalidade pecuniária."
+      },
+
+      {
+        id: "q10",
+        materia: "Direito Administrativo",
+        dificuldade: "médio",
+        enunciado: "A publicidade dos atos administrativos está relacionada principalmente à:",
+        alternativas: [
+          "Transparência da atuação estatal.",
+          "Proibição de divulgação.",
+          "Eliminação do controle social.",
+          "Dispensa de motivação."
+        ],
+        resposta: 0,
+        explicacao: "A publicidade favorece a transparência e o controle da Administração Pública."
+      }
+    ]
+  }
+];
 
 
 // Catálogo inicial da área Revisão.
