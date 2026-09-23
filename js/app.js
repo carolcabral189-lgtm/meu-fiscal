@@ -596,24 +596,8 @@ function phaseFor(days){
 }
 function currentItem(){return state.items[0]||null}
 function materialUnlocked(m){
-  const plan = state.user?.plan || "gratis";
-
-  // Conteúdo gratuito
-  if(m.plano === "gratis") return true;
-
-  // Amostras continuam disponíveis para quem está no Grátis
-  if(m.amostra && plan === "gratis") return true;
-
-  // Completo libera tudo
-  if(plan === "completo") return true;
-
-  // Essencial libera Grátis + Essencial
-  if(plan === "essencial"){
-    return m.plano === "gratis" || m.plano === "essencial";
-  }
-
-  // Grátis
-  return false;
+  if(m.amostra)return true;
+  return state.user?.plan==="essencial" || state.user?.plan==="completo" && (m.plano==="essencial"||m.plano==="completo");
 }
 function showToast(msg){
   toast.textContent=msg; toast.classList.add("show");
