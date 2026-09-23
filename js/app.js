@@ -870,6 +870,26 @@ function renderArea(areaId){
   const area = APP.areas.find(a => a.id === areaId);
   const mats = catalogo.filter(m => m.area === areaId);
 
+  if(areaId === "aulas"){
+  return `
+    ${shell("Aulas 🎥","Aprenda com aulas em vídeo")}
+    <div class="section">
+      <div class="grid">
+        ${mats.map(m => `
+          <div class="card stack">
+            <h3>${m.titulo}</h3>
+            <p class="muted">${m.resumo}</p>
+            <span class="badge">${m.tempo || ""}</span>
+            <button class="btn btn-primary" data-material="${m.id}">
+              Assistir aula
+            </button>
+          </div>
+        `).join("")}
+      </div>
+    </div>
+  `;
+  }
+
   if(areaId === "desempenho"){
 
     const resultados = state.questoesHistorico || [];
