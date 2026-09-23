@@ -101,7 +101,7 @@ const APP = {
 };
 
 const materiais_plano = [
-  {id:"pla-1",area:"plano",tipo:"guia",titulo:"Monte seu plano de estudos fiscal",resumo:"Organize sua preparação a partir do tempo real, das matérias e da fase.",faixa:"18+ · iniciante · pré-edital",plano:"essencial",amostra:true,tempo:"8 min",
+  {id:"pla-1",area:"plano",tipo:"guia",titulo:"Monte seu plano de estudos fiscal",resumo:"Organize sua preparação a partir do tempo real, das matérias e da fase.",faixa:"18+ · iniciante · pré-edital",plano:"essencial",tempo:"8 min",
   abertura:"Quando você começa a estudar para concurso fiscal, é fácil sentir que precisa estudar tudo ao mesmo tempo. Um bom plano começa pelo que cabe na sua vida real.",
   secoes:[
    {titulo:"Descubra seu tempo real",itens:["Conte suas horas disponíveis. Exemplo: 2 horas de segunda a sexta, 4 no sábado e 2 no domingo.","Considere imprevistos. Exemplo: se uma semana tem prova da faculdade, reduza o volume em vez de fingir que terá o mesmo tempo.","Use o tempo disponível como limite. Exemplo: se nesta semana existem 10 horas, monte o plano para 10 horas."]},
