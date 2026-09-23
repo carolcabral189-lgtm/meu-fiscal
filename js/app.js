@@ -13,7 +13,8 @@ const APP = {
     { id:"revisao", name:"Revisão", icon:"cat-revisao.webp", desc:"Volte ao que importa", file:"./conteudo/revisao.js" },
     { id:"desempenho", name:"Desempenho", icon:"cat-desempenho.webp", desc:"Acompanhe sua evolução", file:"./conteudo/desempenho.js" },
     { id:"simulados", name:"Simulados", icon:"cat-simulados.webp", desc:"Teste sua preparação", file:"./conteudo/simulados.js" },
-    { id:"radar", name:"Radar Fiscal", icon:"cat-perfil.webp", desc:"Acompanhe novidades", file:"./conteudo/radar.js" }
+    { id:"radar", name:"Radar Fiscal", icon:"cat-perfil.webp", desc:"Acompanhe novidades", file:"./conteudo/radar.js" },
+    { id:"aulas", name:"Aulas 🎥", icon:"cat-questoes.webp", desc:"Aprenda com aulas em vídeo", file:"./conteudo/aulas.js" }
   ],
   nav: [
     { id:"hoje", label:"Hoje", icon:"cat-simulados.webp" },
