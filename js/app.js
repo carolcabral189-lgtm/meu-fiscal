@@ -596,8 +596,18 @@ function phaseFor(days){
 }
 function currentItem(){return state.items[0]||null}
 function materialUnlocked(m){
-  if(m.amostra)return true;
-  return state.user?.plan==="essencial" || state.user?.plan==="completo" && (m.plano==="essencial"||m.plano==="completo");
+  const plan = state.user?.plan || "gratis";
+
+  if(m.plano === "gratis") return true;
+  if(m.amostra) return true;
+
+  if(plan === "completo") return true;
+
+  if(plan === "essencial"){
+    return m.plano === "essencial";
+  }
+
+  return false;
 }
 function showToast(msg){
   toast.textContent=msg; toast.classList.add("show");
