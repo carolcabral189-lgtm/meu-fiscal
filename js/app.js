@@ -661,10 +661,45 @@ const materiais_impressao = [
     {img:"cat-perfil.webp",titulo:"PRÓXIMO PASSO"}
   ],instrucao:"Como usar: recorte os blocos, escreva uma meta no verso ou ao lado e reorganize-os conforme sua preparação avança."}}
 ];
+// Catálogo da área Aulas.
+// Os vídeos podem ser adicionados posteriormente usando links do YouTube.
+const materiais_aulas = [
+  {
+    id: "aula-01",
+    area: "aulas",
+    tipo: "aula",
+    titulo: "Introdução à Área Fiscal",
+    resumo: "Entenda como organizar sua preparação e quais matérias fazem parte da base fiscal.",
+    faixa: "Iniciante",
+    plano: "essencial",
+    amostra: false,
+    tempo: "15 min",
+
+    video: {
+      plataforma: "youtube",
+      url: "",
+      thumbnail: "",
+      duracao: "15 min"
+    },
+
+    secoes: [
+      {
+        titulo: "Nesta aula você vai aprender",
+        itens: [
+          "Como funciona a preparação para a área fiscal",
+          "Quais matérias fazem parte da base de estudos",
+          "Como organizar sua rotina",
+          "Como utilizar questões e revisões",
+          "Como acompanhar sua evolução"
+        ]
+      }
+    ]
+  }
+];
 
 
 
-const catalogo = [...materiais_plano,...materiais_questoes,...materiais_revisao,...materiais_desempenho,...materiais_simulados,...materiais_radar,...materiais_impressao];
+const catalogo = [...materiais_plano,...materiais_questoes,...materiais_revisao,...materiais_desempenho,...materiais_simulados,...materiais_radar,...materiais_impressao,...materiais_aulas];
 const app = document.querySelector("#app");
 const nav = document.querySelector("#bottom-nav");
 const toast = document.querySelector("#toast");
