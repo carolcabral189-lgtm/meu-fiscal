@@ -673,7 +673,7 @@ const materiais_aulas = [
     resumo: "Entenda como organizar sua preparação e quais matérias fazem parte da base fiscal.",
     faixa: "Iniciante",
     plano: "essencial",
-    amostra: false,
+    amostra: true,
     tempo: "15 min",
 
     video: {
