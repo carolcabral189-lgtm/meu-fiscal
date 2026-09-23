@@ -97,8 +97,8 @@ const APP = {
     price: 35.90,
     checkout: "https://mpago.la/1VVJ6g5"
   }
-  },
-
+    }
+};
 
 const materiais_plano = [
   {id:"pla-1",area:"plano",tipo:"guia",titulo:"Monte seu plano de estudos fiscal",resumo:"Organize sua preparação a partir do tempo real, das matérias e da fase.",faixa:"18+ · iniciante · pré-edital",plano:"essencial",amostra:true,tempo:"8 min",
