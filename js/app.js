@@ -97,7 +97,7 @@ const APP = {
     price: 35.90,
     checkout: "https://mpago.la/1VVJ6g5"
   }
-  }
+  },
 
 
 const materiais_plano = [
