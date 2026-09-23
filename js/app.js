@@ -14,7 +14,7 @@ const APP = {
     { id:"desempenho", name:"Desempenho", icon:"cat-desempenho.webp", desc:"Acompanhe sua evolução", file:"./conteudo/desempenho.js" },
     { id:"simulados", name:"Simulados", icon:"cat-simulados.webp", desc:"Teste sua preparação", file:"./conteudo/simulados.js" },
     { id:"radar", name:"Radar Fiscal", icon:"cat-perfil.webp", desc:"Acompanhe novidades", file:"./conteudo/radar.js" },
-    { id:"aulas", name:"Aulas 🎥", icon:"cat-questoes.webp", desc:"Aprenda com aulas em vídeo", file:"./conteudo/aulas.js" }
+    { id:"aulas", name:"Aulas 🎥", icon:"cat-aulas.webp", desc:"Aprenda com aulas em vídeo", file:"./conteudo/aulas.js" }
   ],
   nav: [
     { id:"hoje", label:"Hoje", icon:"cat-simulados.webp" },
