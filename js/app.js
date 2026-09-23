@@ -114,7 +114,7 @@ const materiais_plano = [
   destaque:"Seu plano não precisa prever uma semana perfeita. Ele precisa funcionar na semana que você realmente vai viver.",
   checklist:["Listei minhas matérias.","Calculei meu tempo real disponível.","Identifiquei minhas matérias mais difíceis.","Separei estudo, revisão e questões.","Montei blocos de estudo.","Reservei tempo para revisar.","Vou revisar o plano no fim da semana."]
  },
- {id:"pla-2",area:"plano",tipo:"checklist",titulo:"Organize sua semana de estudos",resumo:"Monte uma semana possível, com prioridades claras e sem transformar atraso em culpa.",faixa:"18+ · todos os níveis · qualquer fase",plano:"essencial",amostra:true,tempo:"5 min",
+ {id:"pla-2",area:"plano",tipo:"checklist",titulo:"Organize sua semana de estudos",resumo:"Monte uma semana possível, com prioridades claras e sem transformar atraso em culpa.",faixa:"18+ · todos os níveis · qualquer fase",plano:"essencial",tempo:"5 min",
   abertura:"Uma semana não precisa começar com um cronograma enorme. O objetivo é enxergar o que realmente precisa acontecer nos próximos dias.",
   secoes:[
    {titulo:"Veja o tempo disponível",itens:["Conte as horas reais. Exemplo: 2 horas por dia de segunda a sexta.","Considere compromissos diferentes. Exemplo: uma prova na quarta muda a disponibilidade.","Não planeje horas que você sabe que não terá."]},
@@ -140,7 +140,7 @@ const materiais_plano = [
   destaque:"A distribuição do seu tempo deve acompanhar suas necessidades, não apenas a lista de matérias.",
   checklist:["Listei minhas matérias.","Verifiquei a importância de cada uma.","Analisei meus percentuais de acerto.","Identifiquei minhas matérias mais frágeis.","Distribuí blocos de estudo.","Mantive contato com as matérias secundárias.","Vou reavaliar a distribuição depois de algumas semanas."]
  },
- {id:"pla-4",area:"plano",tipo:"material para imprimir",titulo:"Planeje sua semana fiscal",resumo:"Uma folha simples para organizar prioridades, blocos e revisão.",faixa:"18+ · todos os níveis · qualquer fase",plano:"essencial",amostra:true,tempo:"4 min",
+ {id:"pla-4",area:"plano",tipo:"material para imprimir",titulo:"Planeje sua semana fiscal",resumo:"Uma folha simples para organizar prioridades, blocos e revisão.",faixa:"18+ · todos os níveis · qualquer fase",plano:"essencial",tempo:"4 min",
   abertura:"Se você gosta de estudar olhando para uma folha, este material ajuda a tirar o plano da cabeça e colocar o essencial no papel.",
   secoes:[
    {titulo:"Preencha sua semana",itens:["Informe o período. Exemplo: 21 a 27 de setembro.","Informe as horas disponíveis. Exemplo: 14 horas.","Escolha um objetivo principal. Exemplo: melhorar Contabilidade."]},
@@ -180,7 +180,6 @@ const materiais_questoes = [
     resumo: "Questões para praticar e identificar seus principais erros.",
     faixa: "Todos os níveis",
     plano: "essencial",
-    amostra: true,
     tempo: "Prática livre",
     quantidade: 10,
 
@@ -341,12 +340,101 @@ const materiais_questoes = [
 
 // Catálogo inicial da área Revisão.
 // Acrescente novos objetos ao array "materiais" sem alterar js/app.js.
-const materiais_revisao = [];
+const materiais_revisao = [
+  {
+    id: "revisao-01",
+    area: "revisao",
+    tipo: "revisao",
+    titulo: "Revisão Geral — Área Fiscal",
+    resumo: "Revise conceitos importantes de Contabilidade, Direito Tributário e Direito Administrativo.",
+    faixa: "Todos os níveis",
+    plano: "essencial",
+    amostra: false,
+    tempo: "15 min",
+
+    questoes: [
+      {
+        id: 1,
+        materia: "Contabilidade",
+        enunciado: "Uma compra de mercadorias à vista provoca, em regra:",
+        alternativas: [
+          "Aumento do ativo e do passivo.",
+          "Troca entre contas do ativo.",
+          "Aumento somente do passivo.",
+          "Redução do patrimônio líquido."
+        ],
+        resposta: 1,
+        explicacao: "Há entrada de mercadorias e saída de dinheiro, ambas contas do ativo."
+      },
+      {
+        id: 2,
+        materia: "Direito Tributário",
+        enunciado: "A obrigação tributária principal tem por objeto:",
+        alternativas: [
+          "O pagamento de tributo ou penalidade pecuniária.",
+          "Somente a entrega de documentos.",
+          "Somente uma informação cadastral.",
+          "Um contrato privado."
+        ],
+        resposta: 0,
+        explicacao: "A obrigação principal tem como objeto o pagamento de tributo ou penalidade pecuniária."
+      },
+      {
+        id: 3,
+        materia: "Direito Administrativo",
+        enunciado: "A publicidade dos atos administrativos está relacionada à:",
+        alternativas: [
+          "Transparência da atuação estatal.",
+          "Proibição de divulgação.",
+          "Eliminação do controle social.",
+          "Dispensa de motivação."
+        ],
+        resposta: 0,
+        explicacao: "A publicidade favorece a transparência e o controle da Administração."
+      }
+    ]
+  }
+];
 
 
 // Catálogo inicial da área Desempenho.
 // Acrescente novos objetos ao array "materiais" sem alterar js/app.js.
-const materiais_desempenho = [];
+const materiais_desempenho = [
+  {
+    id: "desempenho-01",
+    area: "desempenho",
+    tipo: "desempenho",
+    titulo: "Análise do seu desempenho",
+    resumo: "Acompanhe seus acertos, erros e identifique quais matérias precisam de mais atenção.",
+    faixa: "Todos os níveis",
+    plano: "essencial",
+    amostra: false,
+    tempo: "5 min",
+
+    secoes: [
+      {
+        titulo: "O que acompanhar",
+        itens: [
+          "Percentual geral de acertos",
+          "Quantidade de questões respondidas",
+          "Quantidade de questões erradas",
+          "Matérias com maior número de erros",
+          "Evolução do desempenho ao longo dos estudos"
+        ]
+      },
+      {
+        titulo: "Como usar seus resultados",
+        itens: [
+          "Revise primeiro os assuntos em que você mais erra.",
+          "Refaça questões que você respondeu incorretamente.",
+          "Compare seu desempenho ao longo das semanas.",
+          "Não olhe apenas para a quantidade de questões feitas, mas também para a qualidade dos seus acertos.",
+          "Use os resultados para ajustar seu plano de estudos."
+        ]
+      }
+    ]
+  }
+];
 
 
 // Catálogo da área Simulados.
@@ -501,7 +589,52 @@ const materiais_simulados = [
 
 // Catálogo inicial da área Radar Fiscal.
 // Acrescente novos objetos ao array "materiais" sem alterar js/app.js.
-const materiais_radar = [];
+const materiais_radar = [
+  {
+    id: "radar-01",
+    area: "radar",
+    tipo: "radar",
+    titulo: "Radar Fiscal — O que acompanhar nos estudos",
+    resumo: "Acompanhe mudanças, assuntos importantes e pontos que merecem atenção na sua preparação para a área fiscal.",
+    faixa: "Todos os níveis",
+    plano: "essencial",
+    amostra: false,
+    tempo: "10 min",
+
+    secoes: [
+      {
+        titulo: "O que acompanhar",
+        itens: [
+          "Mudanças importantes na legislação tributária",
+          "Atualizações relacionadas aos concursos da área fiscal",
+          "Assuntos que aparecem com frequência nas provas",
+          "Novidades sobre editais e concursos",
+          "Alterações relevantes em normas e regras"
+        ]
+      },
+      {
+        titulo: "Como usar o Radar Fiscal",
+        itens: [
+          "Reserve alguns minutos durante a semana para acompanhar as atualizações.",
+          "Anote os assuntos que podem aparecer na sua prova.",
+          "Quando uma atualização for importante, revise o conteúdo relacionado.",
+          "Não abandone o seu planejamento por causa de uma novidade.",
+          "Use o Radar como complemento da sua preparação."
+        ]
+      },
+      {
+        titulo: "Checklist rápido",
+        itens: [
+          "Verifique as novidades da semana.",
+          "Separe o que realmente é relevante para sua prova.",
+          "Atualize suas anotações quando necessário.",
+          "Faça questões sobre o assunto.",
+          "Volte ao seu plano de estudos."
+        ]
+      }
+    ]
+  }
+];
 
 
 // Folhas imprimíveis reutilizáveis. A impressão usa apenas HTML/CSS + window.print().
