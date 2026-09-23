@@ -672,7 +672,7 @@ const materiais_aulas = [
     titulo: "Introdução à Área Fiscal",
     resumo: "Entenda como organizar sua preparação e quais matérias fazem parte da base fiscal.",
     faixa: "Iniciante",
-    plano: "essencial",
+    plano: "grátis",
     amostra: true,
     tempo: "15 min",
 
